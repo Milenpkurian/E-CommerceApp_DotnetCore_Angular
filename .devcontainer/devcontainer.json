@@ -1,0 +1,67 @@
+{
+  "name": "ECommerce App Dev Container",
+
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  "shutdownAction": "stopCompose",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.csharp",
+        "ms-mssql.mssql",
+        "patcx.vscode-nuget-gallery",
+        "angular.ng-template",
+        "pkief.material-icon-theme",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "workbench.iconTheme": "material-icon-theme",
+        "workbench.colorTheme": "Default Dark Modern",
+
+        // ---------- Prettier (Angular / Frontend) ----------
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "prettier.printWidth": 100,
+        "prettier.tabWidth": 2,
+        "prettier.singleQuote": true,
+        "prettier.trailingComma": "es5",
+        "prettier.semi": true,
+        "prettier.arrowParens": "always",
+        "prettier.htmlWhitespaceSensitivity": "ignore",
+
+        // Explicitly assign Prettier only to frontend files
+        "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[scss]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+
+        // ---------- ESLint ----------
+        "eslint.format.enable": false,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        },
+
+        // ---------- C# / .NET ----------
+        "[csharp]": {
+          "editor.defaultFormatter": "ms-dotnettools.csharp"
+        },
+        "dotnet.formatting.organizeImports": true
+      }
+    }
+  },
+
+  "forwardPorts": [5000, 5001, 4200]
+}
