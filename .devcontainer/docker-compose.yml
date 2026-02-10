@@ -6,17 +6,18 @@ services:
     working_dir: /workspace
     command: sleep infinity
     ports:
-      - "5000:5000"
-      - "5001:5001"
-      - "4200:4200"
+      - '5000:5000'
+      - '5001:5001'
+      - '4200:4200'
+      - '5137:5137'
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      ACCEPT_EULA: "Y"
+      ACCEPT_EULA: 'Y'
       SA_PASSWORD: ${SA_PASSWORD}
     ports:
-      - "1433:1433"
+      - '1433:1433'
     volumes:
       - sqlserver-data:/var/opt/mssql
 

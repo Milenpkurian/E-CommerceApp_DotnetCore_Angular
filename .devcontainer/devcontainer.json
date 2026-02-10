@@ -51,7 +51,7 @@
         // ---------- ESLint ----------
         "eslint.format.enable": false,
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": true
+          "source.fixAll.eslint": "explicit"
         },
 
         // ---------- C# / .NET ----------
@@ -63,5 +63,5 @@
     }
   },
 
-  "forwardPorts": [5000, 5001, 4200]
+  "forwardPorts": [5000, 5001, 4200, 5137]
 }
