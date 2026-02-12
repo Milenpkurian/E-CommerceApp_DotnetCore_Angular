@@ -63,5 +63,7 @@
     }
   },
 
+  "postCreateCommand": "dotnet tool install --global dotnet-ef",
+
   "forwardPorts": [5000, 5001, 4200, 5137]
 }
