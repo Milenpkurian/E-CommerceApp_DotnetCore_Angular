@@ -14,13 +14,13 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string? brand, string? type, string? sort)
         {
-            return Ok(await repo.GetProductsAsync(brand, type, sort));
+            return Ok(await repo.ListAllAsync());
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await repo.GetProductByIdAsync(id);
+            var product = await repo.GetByIdAsync(id);
 
             if (product == null) return NotFound();
 
@@ -30,9 +30,9 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
-            repo.AddProduct(product);
+            repo.Add(product);
 
-            if (await repo.SaveChangesAsync())
+            if (await repo.SaveAllAync())
             {
                 return CreatedAtAction("GetProduct", new { id = product.Id }, product);
             }
@@ -47,9 +47,9 @@ namespace API.Controllers
                 return BadRequest("Cannot update this product");
             }
 
-            repo.UpdateProduct(product);
+            repo.Update(product);
 
-            if (await repo.SaveChangesAsync())
+            if (await repo.SaveAllAync())
             {
                 return NoContent();
             }
@@ -60,12 +60,12 @@ namespace API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            var product = await repo.GetProductByIdAsync(id);
+            var product = await repo.GetByIdAsync(id);
 
             if (product == null) return NotFound();
 
-            repo.DeleteProduct(product);
-            if (await repo.SaveChangesAsync())
+            repo.Remove(product);
+            if (await repo.SaveAllAync())
             {
                 return NoContent();
             }
@@ -85,7 +85,7 @@ namespace API.Controllers
         }
         private bool ProductExists(int id)
         {
-            return repo.ProductExists(id);
+            return repo.Exists(id);
         }
     }
 }

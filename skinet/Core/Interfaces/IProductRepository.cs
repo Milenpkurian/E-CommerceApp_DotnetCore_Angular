@@ -3,15 +3,8 @@ using Core.Entities;
 
 namespace Core.Interfaces;
 
-public interface IProductRepository
+public interface IProductRepository : IGenericRepository<Product>
 {
-    Task<IReadOnlyList<Product>> GetProductsAsync(string? brand, string? type, string? sort);
-    Task<Product?> GetProductByIdAsync(int id);
-    void AddProduct(Product product);
-    void UpdateProduct(Product product);
-    void DeleteProduct(Product product);
-    bool ProductExists(int id);
     Task<IReadOnlyList<String>> GetBrandsAsync();
     Task<IReadOnlyList<String>> GetTypesAsync();
-    Task<bool> SaveChangesAsync();
 }
