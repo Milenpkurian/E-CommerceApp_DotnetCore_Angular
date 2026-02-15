@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,14 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController(IProductRepository repo) : ControllerBase
+    public class ProductsController(IGenericRepository<Product> repo) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string? brand, string? type, string? sort)
         {
-            return Ok(await repo.ListAllAsync());
+            var spec = new ProductSpecification(brand, type, sort);
+            var products = await repo.ListAsync(spec);
+            return Ok(products);
         }
 
         [HttpGet("{id:int}")]
@@ -72,17 +75,17 @@ namespace API.Controllers
             return BadRequest("Error deleting product");
         }
 
-        [HttpGet("brands")]
-        public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
-        {
-            return Ok(await repo.GetBrandsAsync());
-        }
+        // [HttpGet("brands")]
+        // public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+        // {
+        //     return Ok(await repo.GetBrandsAsync());
+        // }
 
-        [HttpGet("types")]
-        public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
-        {
-            return Ok(await repo.GetTypesAsync());
-        }
+        // [HttpGet("types")]
+        // public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+        // {
+        //     return Ok(await repo.GetTypesAsync());
+        // }
         private bool ProductExists(int id)
         {
             return repo.Exists(id);
