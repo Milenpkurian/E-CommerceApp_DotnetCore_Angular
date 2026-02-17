@@ -75,17 +75,19 @@ namespace API.Controllers
             return BadRequest("Error deleting product");
         }
 
-        // [HttpGet("brands")]
-        // public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
-        // {
-        //     return Ok(await repo.GetBrandsAsync());
-        // }
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+        {
+            var spec = new BrandListSpecification();
+            return Ok(await repo.ListAsync(spec));
+        }
 
-        // [HttpGet("types")]
-        // public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
-        // {
-        //     return Ok(await repo.GetTypesAsync());
-        // }
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+        {
+            var spec = new TypeListSpecification();
+            return Ok(await repo.ListAsync(spec));
+        }
         private bool ProductExists(int id)
         {
             return repo.Exists(id);
